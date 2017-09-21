@@ -1,12 +1,23 @@
 后台技术：
-1.spring
-2.shiro
-3.mybatis
+1. ioc容器：Spring 4.2.2
+2. web框架：Spring MVC 4.2.2
+3. 安全框架：Shiro 1.2.1
+4. 数据库源：Druid 1.0.26
+5. 日志组件：slf4j、log4j
+6. JSON组件：fastjson
+7. 任务调度：quartz
+8. 模板：jsp、freemarker
+9. 缓存组件：ehcache 2.5.3
+10.数据库连接：mybatis
 
 前断：
-1.boostrap
-2.javascript
-3.jquery
+1. 主框架：bootstrap
+2. 表格组件：bootstrap table
+3. 校验组件：jquery validate
+4. 弹层组件：layer
+
+
+
 
 
 
