@@ -1,0 +1,138 @@
+package com.huawei.bes.gd.sm.feedback.util;
+
+import com.huawei.bes.gd.sm.feedback.bean.FeedbackBean;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.io.FileOutputStream;
+import java.util.List;
+
+/**
+ * Created by rWX478292 on 2017/7/17
+ */
+public class ExcelUtil {
+    //待处理0
+    private static final int PENDING = 0;
+    //分析中1
+    private static final int ANALYSE = 1;
+    //已排版2
+    private static final int COMPOSING = 2;
+    //已实现4
+    private static final int IMPLEMENT = 4;
+    //驳回9
+    private static final int REJECT = 9;
+
+
+    public static void createFeedbackExcel(List<FeedbackBean> datas, String filePathAndName) {
+        try {
+            //产生工作簿对象
+            Workbook wb = new XSSFWorkbook();
+            //产生工作表对象
+            Sheet sheet = wb.createSheet("Sheet1");
+            FileOutputStream fos = null;
+            Cell cell = null;
+            CellStyle cellStyle = wb.createCellStyle();
+            cellStyle.setWrapText(true);
+            //横向居中对齐
+            cellStyle.setAlignment(CellStyle.ALIGN_CENTER);
+            //单元格垂直居中
+            cellStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+            Row row = sheet.createRow(0);
+            cell = row.createCell(0);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue("建议编号");
+            cell = row.createCell(1);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue("状态");
+            cell = row.createCell(2);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue("标题");
+            cell = row.createCell(3);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue("联系人姓名");
+            cell = row.createCell(4);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue("联系人号码");
+            cell = row.createCell(5);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue("提交时间");
+            cell = row.createCell(6);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue("菜单名称");
+            cell = row.createCell(7);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue("详细内容");
+            cell = row.createCell(8);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue("处理人姓名");
+            cell = row.createCell(9);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue("处理时间");
+            cell = row.createCell(10);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue("处理内容");
+            cell = row.createCell(11);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue("附件信息");
+            for(int i = 0; i < 12; i++){
+                sheet.setColumnWidth(i, 4000);
+            }
+            fos = new FileOutputStream(filePathAndName);
+            int rowNum = datas.size();
+            for (int i = 0; i < datas.size(); i++) {
+                FeedbackBean bean = datas.get(i);
+                row = sheet.createRow(i + 1);
+                cell = row.createCell(0);
+                cell.setCellValue(bean.getFeedbackId());
+                cell.setCellStyle(cellStyle);
+                cell = row.createCell(1);
+                if (PENDING == bean.getState()) {
+                    cell.setCellValue("待处理");
+                } else if (ANALYSE == bean.getState()) {
+                    cell.setCellValue("分析中");
+                } else if (COMPOSING == bean.getState()) {
+                    cell.setCellValue("已排版");
+                } else if (IMPLEMENT == bean.getState()) {
+                    cell.setCellValue("已实现");
+                } else if (REJECT == bean.getState()) {
+                    cell.setCellValue("驳回");
+                }
+                cell.setCellStyle(cellStyle);
+                cell = row.createCell(2);
+                cell.setCellValue(bean.getTitle());
+                cell.setCellStyle(cellStyle);
+                cell = row.createCell(3);
+                cell.setCellValue(bean.getLinkMan());
+                cell.setCellStyle(cellStyle);
+                cell = row.createCell(4);
+                cell.setCellValue(bean.getLinkTel());
+                cell.setCellStyle(cellStyle);
+                cell = row.createCell(5);
+                cell.setCellValue(bean.getCreateTime());
+                cell.setCellStyle(cellStyle);
+                cell = row.createCell(6);
+                cell.setCellValue(bean.getMenuName());
+                cell.setCellStyle(cellStyle);
+                cell = row.createCell(7);
+                cell.setCellValue(bean.getContent());
+                cell.setCellStyle(cellStyle);
+                cell = row.createCell(8);
+                cell.setCellValue(bean.getDealOperName());
+                cell.setCellStyle(cellStyle);
+                cell = row.createCell(9);
+                cell.setCellValue(bean.getDealTime());
+                cell.setCellStyle(cellStyle);
+                cell = row.createCell(10);
+                cell.setCellValue(bean.getDealInfo());
+                cell.setCellStyle(cellStyle);
+                cell = row.createCell(11);
+                cell.setCellValue(bean.getFilePath());
+                cell.setCellStyle(cellStyle);
+            }
+            wb.write(fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}
