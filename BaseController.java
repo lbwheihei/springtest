@@ -19,3 +19,8 @@ public class BaseController {
     }
 
 }
+
+web.xml
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
