@@ -1,13 +1,30 @@
 一、java基础
 1、面向对象的特征有哪些方面? 【基础】
+
 https://www.cnblogs.com/guweiwei/p/6599289.html
+
 2、int 和Integer 有什么区别? 【基础】
+
+https://blog.csdn.net/chenliguan/article/details/53888018
 
 3、Math.round(11.5) 等于多少? Math.round(-11.5)等于多少? 【基础】
 
+ceil的英文意义是天花板，该方法就表示向上取整，Math.ceil（11.3）的结果为12，Math.ceil(-11.6)的结果为-11；
+floor的英文是地板，该方法就表示向下取整，Math.floor(11.6)的结果是11，Math.floor(-11.4)的结果-12；
+round方法，他表示“四舍五入”，算法为Math.floor(x+0.5),即将原来的数字加上0.5后再向下取整，所以，Math.round(11.5)的结果是12，Math.round(-11.5)的结果为-11.
+
 4、编程题: 用最有效率的方法算出2 乘以8 等於几? 【基础】
 
+2的二进制表示法左移3位，2的二进制应该是0000 0010，左移3位后
+0001 0000（可以看成是一个框就能显示8位数据，向左移动后前面的三位不就看不到了嘛，后面的自动补0）
+2 << 3 = 8
+
 5、数组有没有 length()方法？String 有没有 length()方法？【基础】
+
+数组没有length()方法
+数组只有length属性，表示的是数组的长度。而且这个属性可以理解为止一个常量，一旦数组被产生，我们可以得到length的值，但不能改变。
+String有length()方法
+返回的是字符串的长度。也不能修改。
 
 6、构造器（constructor）是否可被重写（override）？【基础】
 
