@@ -1,6 +1,6 @@
 一、java基础
 1、面向对象的特征有哪些方面? 【基础】
-
+https://www.cnblogs.com/guweiwei/p/6599289.html
 2、int 和Integer 有什么区别? 【基础】
 
 3、Math.round(11.5) 等于多少? Math.round(-11.5)等于多少? 【基础】
