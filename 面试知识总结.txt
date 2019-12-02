@@ -70,10 +70,119 @@ String类的方法头是:Public final class String extends Object
 　三，假如说整个类都是final，就表明自己不希望从这个类继承，或者不答应其他任何人采取这种操作。换言之，出于这样或那样的原因，我们的类肯定不需要进行任何改变；或者出于安全方面的理由，我们不希望进行子类化（子类处理）。
 
 8、当一个对象被当作参数传递到一个方法后，此方法可改变这个对象的属性，并可返回变化后的结果，那么这里到底是值传递还是引用传递? 【基础】
+https://yq.aliyun.com/articles/607572
+
+是值传递。Java编程语言只有值传递参数。
+
+当一个对象实例作为一个参数被传递到方法中时，参数的值就是该对象的引用一个副本。指向同一个对象，对象的内容可以在被调用的方法中改变，但对象的引用(不是引用的副本)是永远不会改变的。
+示例代码如下：
+// 在函数中传递的是基本数据类型
+public class Test {  
+    public static void main(String[] args) {  
+        int a = 3;  
+        int b = 4;  
+        change(a, b);  
+  
+        System.out.println("a=" + a); // 3
+        System.out.println("b=" + b); // 4  
+    }  
+
+    public static void change(int i, int j) {  
+        int temp = i;  
+        i = j;  
+        j = temp;  
+    }  
+}  
+  
+结果为:  
+
+a=3  
+b=4  
+
+原因：参数中传递的是基本数据类型a和b的拷贝，在函数中交换的也是那份拷贝的值，而不是数据本身。
+
+// 在函数中传的是引用数据类型  
+public class Test {  
+    public static void main(String[] args) {  
+        int[] count = { 1, 2, 3, 4, 5 };  
+        change(count);  // 6
+    }    
+
+    public static void change(int[] counts) {  
+        counts[0] = 6;  
+        System.out.println(counts[0]);  
+    }  
+} 
+  
+结果为：
+
+6
+  
+原因：在方法中，传递引用数据类型int数组，实际上传递的是该数组的地址值，他们都指向数组对象，在方法中可以改变数组对象的内容。
+
+传递的是对象的引用  
+class A {  
+    int i = 0;  
+}  
+  
+public class Test {      
+    public static void main(String args[]) {  
+        A a = new A();  
+        add(a); // 1  
+        System.out.println(a.i);  // 0
+    }  
+    
+    public static void add(A a) {  
+        a = new A();  
+        a.i++;
+        System.out.println(a.i); 
+    }  
+}
+
+结果为：
+
+1
+0  
+
+原因：在该程序中，对象的引用指向的是A，而在add方法中，传递的引用的一份副本则指向了一个新的对象，并对新的对象进行操作。而原来的A对象并没有发生任何变化。引用指向的是还是原来的A对象。
+
+// String 不改变，数组改变
+public class Example {  
+    public static void main(String args[]) {  
+        Example ex = new Example();  
+        ex.change(ex.str, ex.ch);  
+        System.out.print(ex.str + " and "); // good and
+        System.out.println(ex.ch); // gbc
+    }  
+    
+    String str = new String("good"); // good 是常量，不能改
+    
+    char[] ch = { 'a', 'b', 'c' };  
+  
+    public void change(String str, char ch[]) {  
+        str = "test ok"; // test ok 又是一个常量，也不能改 　　等价于 String str1 = new String("test ok");
+        ch[0] = 'g';  
+    }  
+} 
+
+结果为：
+
+good and gbc 
+
+原因：String类比较特别，看过String类代码的都知道，String类是final修饰的。所以值是不变的。 
+函数中String对象引用的副本指向了另外一个新String对象，而数组对象引用的副本没有改变，而是改变对象中数据的内容。
+对于对象类型，也就是Object的子类，如果你在方法中修改了它的成员的值，那个修改是生效的，方法调用结束后，它的成员是新的值；但是如果你把它指向一个其它的对象，方法调用结束后，原来对它的引用并没用指向新的对象。
 
 9、String 和StringBuffer 的区别?【基础】
 
 10、String, StringBuffer StringBuilder 的区别。【基础】
+https://blog.csdn.net/u011702479/article/details/82262823
+
+小结：（1）如果要操作少量的数据用 String；
+
+（2）多线程操作字符串缓冲区下操作大量数据 StringBuffer；
+
+（3）单线程操作字符串缓冲区下操作大量数据 StringBuilder。
 
 11、重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？【基础】
 
